@@ -3,8 +3,10 @@ var http = require('http');
 var fs = require('fs');
 var strftime = require('strftime').strftime;
 
-var xml = http.createClient(80, 'services.tvrage.com');
-var host = { 'host': 'services.tvrage.com' };
+var ws = 'services.tvrage.com';
+var xml = http.createClient(80, ws);
+var host = { 'host': ws };
+var format = '%d/%m-%Y';
 
 /**
  * Fetches all episodes by series id
@@ -51,7 +53,9 @@ function nextEpisode (o, next) {
 	dates.push(Date.parse(ep.airdate));
 	previousEp = dates[dates.length - 2];
 	currentEp = dates[dates.length - 1];
-	if (previousEp && currentEp && today <= currentEp && today > previousEp) {
+	var now = strftime(format, new Date());
+	var current = strftime(format, new Date(currentEp));
+	if (current === now || previousEp && currentEp && today <= currentEp && today > previousEp) {
 	  nextEp = ep;
 	  nextEp.show = o.name;
 	  throw $break;
@@ -72,7 +76,6 @@ function nextEpisode (o, next) {
 /**
  * Logs episode with air date
  */
-var format = '%d/%m-%Y';
 function log (today, episode) {
   var airdate = strftime(format, new Date(episode.airdate));
   console.log('%s - %s - %s'

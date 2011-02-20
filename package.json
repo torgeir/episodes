@@ -1,5 +1,6 @@
 {
   "name" : "episodes",  
+  "author": { "name": "Torgeir Thoresen", "email" : "torgeir.thoresen@gmail.com" },
   "version" : "0.0.1",
   "dependencies" : {
     "xml2js" : "",
