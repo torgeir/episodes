@@ -1,0 +1,8 @@
+{
+  'name' : 'episodes',  
+  'version' : '0.0.1',
+  'dependencies' : {
+    'xml2js' : '',
+    'strftime' : ''
+  }
+}
